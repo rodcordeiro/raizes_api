@@ -17,6 +17,10 @@ RUN apt update \
     pdo_mysql
 
 WORKDIR /var/www/html
+RUN chmod -R 775 /var/www/html
+RUN chown -R $USER:www-data /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# 
+EXPOSE 80
+EXPOSE 443
+
