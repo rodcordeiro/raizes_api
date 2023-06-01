@@ -1,0 +1,11 @@
+on:
+  pull_request:
+    branches:
+      - "main"
+name: Publish Website
+jobs:
+  ValidateActor:
+    if: github.head_ref == 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "PR pipeline validated!"
