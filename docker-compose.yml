@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  apache:
+    build: .
+    container_name: raizes_php
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - '80:80'
+    volumes:
+      - ./:/var/www/html
+    
