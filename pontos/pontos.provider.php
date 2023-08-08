@@ -139,7 +139,6 @@ $lines = $this->getLines();
       "pontos"=>$pontos,
       "linhas"=>$lines
     );
-    
-    return $data
+    return $data;
   }
 }
