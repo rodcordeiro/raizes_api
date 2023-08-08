@@ -103,4 +103,43 @@ WHERE P.linha = {$line};";
 
         return $dash_response;
     }
+  public function oldData(){
+    $pontos = array();
+
+        $query = "select P.id
+        , P.ritmo as rythm_id
+    , R.ritmo as rythm_description
+    , P.linha as line_id
+    , L.linha as line_description
+    , P.tipo
+    , P.ponto
+    , P.audio_link
+ from icnt_pontos P
+ JOIN icnt_ritmos R ON R.id = P.ritmo
+ JOIN icnt_linha L ON L.id = P.linha;";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $pontos = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            // print_r($row);
+            extract($row);
+            $p = array(
+                "id" => $id,
+                "ritmo" => $rythm_description,
+                "idLinha" => $line_id,
+                "linha" => $line_description,
+                "tipo" => $tipo,
+                "ponto" => $ponto,
+                "audioLink" => $audio_link,
+            );
+            array_push($pontos, $p);
+        }
+$lines = $this->getLines();
+    $data = array(
+      "pontos"=>$pontos,
+      "linhas"=>$lines
+    );
+    
+    return $data
+  }
 }
