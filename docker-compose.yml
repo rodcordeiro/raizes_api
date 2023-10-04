@@ -11,4 +11,30 @@ services:
       - '80:80'
     volumes:
       - ./:/var/www/html
+    networks:
+      - raizes_net
+  db:
+    image: mysql:latest
+    container_name: raizes_db
+    restart: on-failure
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: raizes_db
+    ports:
+      - "3306:3306"
+    expose:
+      # Opens port 3306 on the container
+      - "3306"
+    networks:
+      - raizes_net
+    volumes:
+      - "./assets/db/:/docker-entrypoint-initdb.d/"
+    
+    
+networks:
+  raizes_net:
+    driver: bridge
     

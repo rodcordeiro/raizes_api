@@ -11,16 +11,13 @@ class DBClass
         $password = getenv('ICNT_MYSQL_PASSWORD');
         $database = getenv('ICNT_MYSQL_DATABASE');
 
-        $this->connection = $host;
-
-
         try {
             $this->connection = new PDO("mysql:host=" . $host . ";dbname=" . $database, $username, $password);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection->exec("set names utf8");
+            return $this->connection;
         } catch (PDOException $exception) {
-            echo "Error: " . $exception->getMessage();
+            die("Error: " . $exception->getMessage());
         }
-
-        return $this->connection;
     }
 }

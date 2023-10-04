@@ -5,6 +5,7 @@ include_once './pontos/pontos.provider.php';
 
 $db = new DBClass();
 $connection = $db->getConnection();
+
 $Pontos = new PontosProvider($connection);
 
 $data = $Pontos->getData();
